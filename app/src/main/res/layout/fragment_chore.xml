@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/chore_title_label"
+        android:fontFamily="casual"
         style="?android:listSeparatorTextViewStyle"
         />
 
@@ -17,25 +18,29 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:hint="@string/chore_title_hint"
+        android:fontFamily="casual"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/chore_details_label"
+        android:fontFamily="casual"
         style="?android:listSeparatorTextViewStyle"/>
 
      <Button android:id="@+id/chore_date"
        android:layout_height="wrap_content"
        android:layout_width="match_parent"
        android:layout_marginLeft="16dp"
-       android:layout_marginRight="16dp" />
+       android:layout_marginRight="16dp"
+       android:fontFamily="casual"/>
 
     <CheckBox android:id="@+id/chore_solved"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:fontFamily="casual"
         android:text="@string/chore_solved_label"/>
 
 </LinearLayout>

@@ -17,6 +17,7 @@
         android:id="@+id/list_item_chore_title_text_view"
         android:layout_toLeftOf="@id/list_item_chore_solved_check_box"
         android:textStyle="bold"
+        android:fontFamily="casual"
         android:padding="4dp"
         tools:text="Chore Title"/>
 
@@ -26,6 +27,7 @@
         android:id="@+id/list_item_chore_date_text_view"
         android:layout_toLeftOf="@id/list_item_chore_solved_check_box"
         android:layout_below="@id/list_item_chore_title_text_view"
+        android:fontFamily="casual"
         android:padding="4dp"
         tools:text="Chore Date"
         />
