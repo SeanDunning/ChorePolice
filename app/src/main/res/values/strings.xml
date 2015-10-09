@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CriminalIntent</string>
+    <string name="action_settings">Settings</string>
+    <string name="chore_title_hint">Enter a title for the chore.</string>
+    <string name="chore_title_label">Title</string>
+    <string name="chore_details_label">Details</string>
+    <string name="chore_solved_label">Solved</string>
+    <string name="date_picker_title">Date:</string>
+    <string name="new_chore">New Chore</string>
+    <string name="delete_chore">Delete Chore</string>
+
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$s chores</string>
+    <string name="no_chores">Press the + button to add chores.</string>
+
+
+</resources>
