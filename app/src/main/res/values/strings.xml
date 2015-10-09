@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ChorePolice</string>
+    <string name="app_name">Chore Police</string>
     <string name="action_settings">Settings</string>
     <string name="chore_title_hint">Enter a title for the chore.</string>
     <string name="chore_title_label">Title</string>
