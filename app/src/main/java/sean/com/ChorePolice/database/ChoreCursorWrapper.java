@@ -1,14 +1,13 @@
-package sean.com.criminalintent.database;
+package sean.com.ChorePolice.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import java.util.Date;
 import java.util.UUID;
 
-import sean.com.criminalintent.Chore;
+import sean.com.ChorePolice.Chore;
 
-import static sean.com.criminalintent.database.ChoreDBSchema.ChoreTable;
+import static sean.com.ChorePolice.database.ChoreDBSchema.ChoreTable;
 
 /**
  * Created by Sean on 9/29/2015.

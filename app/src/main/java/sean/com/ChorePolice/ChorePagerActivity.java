@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class ChorePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_CHORE_ID =
-            "com.criminalintent.chore_id"; //key of extra to be passed
+            "com.ChorePolice.chore_id"; //key of extra to be passed
 
     private ViewPager mViewPager;
     private List<Chore> mChores;

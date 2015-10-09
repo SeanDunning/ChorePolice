@@ -5,7 +5,7 @@ android {
     buildToolsVersion '23.0.1'
 
     defaultConfig {
-        applicationId "sean.com.criminalintent"
+        applicationId "sean.com.ChorePolice"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

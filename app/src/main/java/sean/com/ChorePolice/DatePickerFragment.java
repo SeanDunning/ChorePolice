@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 public class DatePickerFragment extends DialogFragment {
 
     private static final String ARG_DATE = "Date";
-    public static final String EXTRA_DATE = "com.sean.criminalintent.date";
+    public static final String EXTRA_DATE = "com.sean.ChorePolice.date";
 
     private DatePicker mDatePicker;
 

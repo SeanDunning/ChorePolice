@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 
 import android.app.Activity;
@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Date;

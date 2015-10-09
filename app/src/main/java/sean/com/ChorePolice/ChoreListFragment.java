@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

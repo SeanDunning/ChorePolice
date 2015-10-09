@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

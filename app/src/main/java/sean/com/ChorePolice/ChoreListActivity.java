@@ -1,7 +1,6 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by Sean on 9/18/2015.

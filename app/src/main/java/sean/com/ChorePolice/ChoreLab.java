@@ -1,4 +1,4 @@
-package sean.com.criminalintent;
+package sean.com.ChorePolice;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import sean.com.criminalintent.database.ChoreBaseHelper;
-import sean.com.criminalintent.database.ChoreCursorWrapper;
-import sean.com.criminalintent.database.ChoreDBSchema;
+import sean.com.ChorePolice.database.ChoreBaseHelper;
+import sean.com.ChorePolice.database.ChoreCursorWrapper;
 
-import static sean.com.criminalintent.database.ChoreDBSchema.ChoreTable;
+import static sean.com.ChorePolice.database.ChoreDBSchema.ChoreTable;
 
 /**
  * Created by Sean on 9/18/2015.

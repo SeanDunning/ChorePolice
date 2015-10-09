@@ -1,4 +1,4 @@
-package sean.com.criminalintent.database;
+package sean.com.ChorePolice.database;
 
 /**
  * Created by Sean on 9/29/2015.

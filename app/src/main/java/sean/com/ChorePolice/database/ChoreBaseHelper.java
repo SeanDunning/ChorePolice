@@ -1,10 +1,10 @@
-package sean.com.criminalintent.database;
+package sean.com.ChorePolice.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static sean.com.criminalintent.database.ChoreDBSchema.ChoreTable;
+import static sean.com.ChorePolice.database.ChoreDBSchema.ChoreTable;
 
 /**
  * Created by Sean on 9/29/2015.
