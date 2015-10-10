@@ -2,4 +2,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" >
     <color name="green">#00ff00</color>
     <color name="dark_gray">#A9A9A9</color>
+    <color name="main_indigo">#3f51b5</color>
+    <color name="very_light_indigo">#9fa8da</color>
+    <color name="accent_indigo">#536dfe</color>
+
 </resources>

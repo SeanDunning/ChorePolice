@@ -13,6 +13,7 @@ public class Chore {
     private String mTitle;
     private String mDate;
     private boolean mSolved;
+    private String mSuspect;
 
 
 
@@ -42,6 +43,14 @@ public class Chore {
         //String dateFormatted = DateFormat.getDateTimeInstance().format(new Date());
 
         mDate = date;
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
     }
 
     public UUID getId() {

@@ -25,7 +25,8 @@ public class ChoreBaseHelper extends SQLiteOpenHelper {
                 ChoreTable.Cols.UUID + ", " +
                 ChoreTable.Cols.TITLE + ", " +
                 ChoreTable.Cols.DATE + ", " +
-                ChoreTable.Cols.SOLVED +
+                ChoreTable.Cols.SOLVED + "," +
+                ChoreTable.Cols.SUSPECT +
                 ")"
         );
     }

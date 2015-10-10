@@ -1,46 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+
+              android:orientation="vertical"
 
 
-    <TextView
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/chore_title_label"
-        android:fontFamily="casual"
-        style="?android:listSeparatorTextViewStyle"
-        />
+        android:orientation="horizontal"
+        android:paddingBottom="40dp"
+        android:elevation="10dp"
+        android:background="@color/main_indigo">
 
-    <EditText android:id="@+id/chore_title"
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="4dp"
+
+            >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/chore_photo"
+                android:scaleType="centerInside"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/very_light_indigo"
+                android:cropToPadding="true"/>
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/chore_camera"
+                android:background="@color/very_light_indigo"
+                android:src="@android:drawable/ic_menu_camera"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/chore_title_label"
+                android:fontFamily="casual"
+                />
+
+            <EditText android:id="@+id/chore_title"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="16dp"
+                      android:layout_marginLeft="16dp"
+                      android:hint="@string/chore_title_hint"
+                      android:fontFamily="casual"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:hint="@string/chore_title_hint"
-        android:fontFamily="casual"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/chore_details_label"
-        android:fontFamily="casual"
-        style="?android:listSeparatorTextViewStyle"/>
+        <Button android:id="@+id/chore_date"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/very_light_indigo"
 
-     <Button android:id="@+id/chore_date"
-       android:layout_height="wrap_content"
-       android:layout_width="match_parent"
-       android:layout_marginLeft="16dp"
-       android:layout_marginRight="16dp"
-       android:fontFamily="casual"/>
+                android:fontFamily="casual"/>
 
-    <CheckBox android:id="@+id/chore_solved"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:fontFamily="casual"
-        android:text="@string/chore_solved_label"/>
+        <CheckBox android:id="@+id/chore_solved"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginRight="16dp"
+                  android:fontFamily="casual"
+                  android:text="@string/chore_solved_label"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chore_suspect"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="casual"
+            android:background="@color/very_light_indigo"
+            android:text="@string/chore_suspect_text"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chore_report"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="casual"
+            android:background="@color/very_light_indigo"
+            android:text="@string/chore_report_text"/>
+
+    </LinearLayout>
 
 </LinearLayout>
+

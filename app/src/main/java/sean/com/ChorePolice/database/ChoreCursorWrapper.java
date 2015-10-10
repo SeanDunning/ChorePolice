@@ -23,11 +23,13 @@ public class ChoreCursorWrapper extends CursorWrapper {
         String title = getString(getColumnIndex(ChoreTable.Cols.TITLE));
         String date = getString(getColumnIndex(ChoreTable.Cols.DATE));
         int isSolved = getInt(getColumnIndex(ChoreTable.Cols.SOLVED));
+        String suspect = getString(getColumnIndex(ChoreTable.Cols.SUSPECT));
 
         Chore chore = new Chore(UUID.fromString(uuidString));
         chore.setTitle(title);
         chore.setDate(date);
         chore.setSolved(isSolved != 0);
+        chore.setSuspect(suspect);
 
         return chore;
 

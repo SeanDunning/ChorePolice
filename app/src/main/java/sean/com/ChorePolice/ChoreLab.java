@@ -100,6 +100,7 @@ public class ChoreLab {
         values.put(ChoreTable.Cols.TITLE, chore.getTitle());
         values.put(ChoreTable.Cols.DATE, chore.getDate()/*.getTime()*/);
         values.put(ChoreTable.Cols.SOLVED, chore.isSolved() ? 1 : 0);
+        values.put(ChoreTable.Cols.SUSPECT, chore.getSuspect());
 
         return values;
 

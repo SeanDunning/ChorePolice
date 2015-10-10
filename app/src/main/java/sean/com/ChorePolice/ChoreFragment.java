@@ -3,7 +3,11 @@ package sean.com.ChorePolice;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -32,11 +36,15 @@ public class ChoreFragment extends Fragment {
     private static final String DIALOG_DATE = "DialogDate";
 
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_CONTACT = 1;
 
     private Chore mChore;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private Button mReportButton;
+    private Button mSuspectButton;
+
 
     public static ChoreFragment newInstance(UUID choreId) {
         Bundle args = new Bundle();
@@ -109,15 +117,15 @@ public class ChoreFragment extends Fragment {
         mDateButton = (Button) v.findViewById(R.id.chore_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               FragmentManager manager = getFragmentManager();
-               Date tempDate = new Date();
-               DatePickerFragment dialog = DatePickerFragment.newInstance(tempDate/*mChore.getDate()*/);
-               //call DatePickerFragment new Instance, supply chores date.
-               dialog.setTargetFragment(ChoreFragment.this, REQUEST_DATE);
-               dialog.show(manager, DIALOG_DATE);
-           }
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                Date tempDate = new Date();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(tempDate/*mChore.getDate()*/);
+                //call DatePickerFragment new Instance, supply chores date.
+                dialog.setTargetFragment(ChoreFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
         });
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.chore_solved);
@@ -128,6 +136,38 @@ public class ChoreFragment extends Fragment {
                 mChore.setSolved(isChecked);
             }
         });
+
+        mReportButton = (Button) v.findViewById(R.id.chore_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getChoreReport());
+                i.putExtra(Intent.EXTRA_SUBJECT,
+                        getString(R.string.chore_report_subject));
+                i = Intent.createChooser(i, getString(R.string.send_report));
+                startActivity(i);
+
+            }
+        });
+
+        final Intent pickContact = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        mSuspectButton = (Button) v.findViewById(R.id.chore_suspect);
+        mSuspectButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivityForResult(pickContact,REQUEST_CONTACT);
+            }
+        });
+
+        if(mChore.getSuspect() != null) {
+            mSuspectButton.setText(mChore.getSuspect());
+        }
+
+        PackageManager packageManager = getActivity().getPackageManager();
+        if(packageManager.resolveActivity(pickContact, PackageManager.MATCH_DEFAULT_ONLY) == null) {
+            mSuspectButton.setEnabled(false);
+        } //case for no contacts app
 
         return v;
     }
@@ -144,6 +184,26 @@ public class ChoreFragment extends Fragment {
             String date = DateFormat.getDateTimeInstance().format(tempDate);
             mChore.setDate(date);
             updateDate();
+        } else if (requestCode == REQUEST_CONTACT && data != null) { //result back from contacts intent
+            Uri contactUri = data.getData();
+            String[] queryFields = new String[] {
+                    ContactsContract.Contacts.DISPLAY_NAME
+            };
+
+            Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
+
+            try {
+                if (c.getCount() == 0) {
+                    return;
+                } //checks for results
+
+                c.moveToFirst(); //info is at first column of row 0
+                String suspect = c.getString(0);
+                mChore.setSuspect(suspect);
+                mSuspectButton.setText(suspect);
+            } finally {
+                c.close();
+            }
         }
     }
 
@@ -151,4 +211,30 @@ public class ChoreFragment extends Fragment {
         mDateButton.setText(mChore.getDate().toString());
     }
 
+    private String getChoreReport() {
+        String solvedString = null;
+        if (mChore.isSolved()) {
+            solvedString = getString(R.string.chore_report_solved);
+        } else {
+            solvedString = getString(R.string.chore_report_unsolved);
+        }
+
+        //String dateFormat = "EEE, MMM dd";
+        //String dateString = DateFormat.format(dateFormat, mChore.getDate()).toString();
+        String dateString = mChore.getDate();
+
+        String suspect = mChore.getSuspect();
+        if (suspect == null) {
+            suspect = getString(R.string.chore_report_no_suspect);
+        } else {
+            suspect = getString(R.string.chore_report_suspect, suspect);
+        }
+
+        String report = getString(R.string.chore_report,
+                mChore.getTitle(), dateString, solvedString, suspect);
+
+        return report;
+
+
+    }
 }
