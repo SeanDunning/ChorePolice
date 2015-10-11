@@ -18,10 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -44,6 +46,7 @@ public class ChoreFragment extends Fragment {
     private CheckBox mSolvedCheckBox;
     private Button mReportButton;
     private Button mSuspectButton;
+    private ImageView mDateIcon;
 
 
     public static ChoreFragment newInstance(UUID choreId) {
@@ -113,6 +116,14 @@ public class ChoreFragment extends Fragment {
                 //blank intentionally
             }
         });
+        mTitleField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
         mDateButton = (Button) v.findViewById(R.id.chore_date);
         updateDate();
@@ -130,6 +141,7 @@ public class ChoreFragment extends Fragment {
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.chore_solved);
         mSolvedCheckBox.setChecked(mChore.isSolved());
+
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -151,6 +163,9 @@ public class ChoreFragment extends Fragment {
             }
         });
 
+        //mDateIcon = (ImageView) v.findViewById(R.id.date_icon);
+       // mDateIcon.setImageResource(R.drawable.ic_date);
+
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         mSuspectButton = (Button) v.findViewById(R.id.chore_suspect);
@@ -161,7 +176,7 @@ public class ChoreFragment extends Fragment {
         });
 
         if(mChore.getSuspect() != null) {
-            mSuspectButton.setText(mChore.getSuspect());
+            mSuspectButton.setText("Suspect is " + mChore.getSuspect());
         }
 
         PackageManager packageManager = getActivity().getPackageManager();
@@ -234,7 +249,10 @@ public class ChoreFragment extends Fragment {
                 mChore.getTitle(), dateString, solvedString, suspect);
 
         return report;
+    }
 
-
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

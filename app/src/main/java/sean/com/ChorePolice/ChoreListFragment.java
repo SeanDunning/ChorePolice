@@ -164,6 +164,7 @@ public class ChoreListFragment extends Fragment {
             //mDateTextView.setText(date);
             mDateTextView.setText(mChore.getDate());
             mSolvedCheckbox.setChecked(mChore.isSolved());
+            mSolvedCheckbox.setClickable(false);
         } //bindChore - set list item values correctly; called by ChoreAdapter
 
     }//ChoreHolder - holds view for chore details (2 textViews, 1 checkBox)
