@@ -42,11 +42,11 @@ public class ChoreFragment extends Fragment {
 
     private Chore mChore;
     private EditText mTitleField;
+    private EditText mDescField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private Button mReportButton;
     private Button mSuspectButton;
-    private ImageView mDateIcon;
 
 
     public static ChoreFragment newInstance(UUID choreId) {
@@ -125,6 +125,33 @@ public class ChoreFragment extends Fragment {
             }
         });
 
+        mDescField = (EditText) v.findViewById(R.id.chore_desc);
+        mDescField.setText(mChore.getDescription());
+        mDescField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //blank intentionally
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //mChore.setTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //blank intentionally
+            }
+        });
+        mDescField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
         mDateButton = (Button) v.findViewById(R.id.chore_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -163,9 +190,6 @@ public class ChoreFragment extends Fragment {
             }
         });
 
-        //mDateIcon = (ImageView) v.findViewById(R.id.date_icon);
-       // mDateIcon.setImageResource(R.drawable.ic_date);
-
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         mSuspectButton = (Button) v.findViewById(R.id.chore_suspect);
@@ -176,7 +200,7 @@ public class ChoreFragment extends Fragment {
         });
 
         if(mChore.getSuspect() != null) {
-            mSuspectButton.setText("Suspect is " + mChore.getSuspect());
+            mSuspectButton.setText(getString(R.string.chore_suspect_selected, mChore.getSuspect()));
         }
 
         PackageManager packageManager = getActivity().getPackageManager();
@@ -215,7 +239,7 @@ public class ChoreFragment extends Fragment {
                 c.moveToFirst(); //info is at first column of row 0
                 String suspect = c.getString(0);
                 mChore.setSuspect(suspect);
-                mSuspectButton.setText(suspect);
+                mSuspectButton.setText(getString(R.string.chore_suspect_selected, mChore.getSuspect()));
             } finally {
                 c.close();
             }
@@ -248,6 +272,7 @@ public class ChoreFragment extends Fragment {
         String report = getString(R.string.chore_report,
                 mChore.getTitle(), dateString, solvedString, suspect);
 
+        mChore.setSolved(true);
         return report;
     }
 

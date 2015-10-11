@@ -24,6 +24,7 @@ public class ChoreBaseHelper extends SQLiteOpenHelper {
                 "_id integer primary key autoincrement, " +
                 ChoreTable.Cols.UUID + ", " +
                 ChoreTable.Cols.TITLE + ", " +
+                ChoreTable.Cols.DESC + ", " +
                 ChoreTable.Cols.DATE + ", " +
                 ChoreTable.Cols.SOLVED + "," +
                 ChoreTable.Cols.SUSPECT +

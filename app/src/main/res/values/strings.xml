@@ -3,10 +3,10 @@
 
     <string name="app_name">Chore Police</string>
     <string name="action_settings">Settings</string>
-    <string name="chore_title_hint">Enter a title for the chore.</string>
+    <string name="chore_title_hint">Enter a title for the chore</string>
     <string name="chore_title_label">Title</string>
     <string name="chore_desc_label">Description</string>
-    <string name="chore_desc_hint">Enter a description for the chore.</string>
+    <string name="chore_desc_hint">Enter a description</string>
 
     <string name="chore_details_label">Details</string>
     <string name="chore_solved_label">Suspect was ticketed</string>
@@ -19,6 +19,8 @@
     <string name="subtitle_format">%1$s chores</string>
     <string name="no_chores">Press the + button to add chores.</string>
     <string name="chore_suspect_text">Choose Suspect</string>
+    <string name="chore_suspect_selected">The suspect is %1$s</string>
+
     <string name="chore_report_text">Ticket the suspect</string>
     <string name="chore_report">%1$s!
         The crime was discovered on %2$s. %3$s, and %4$s

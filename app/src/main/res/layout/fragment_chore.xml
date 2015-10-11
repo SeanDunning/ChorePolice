@@ -64,15 +64,6 @@
                 android:text="@string/chore_title_label"
                 android:fontFamily="casual"
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="60dp"
-                android:text="@string/chore_desc_label"
-                android:fontFamily="casual"
-                />
-
-
 
 
         </LinearLayout>
@@ -94,6 +85,7 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginLeft="5dp"
+                      android:layout_marginTop="10dp"
                       android:hint="@string/chore_desc_hint"
                       android:fontFamily="casual"
 
@@ -132,7 +124,7 @@
                 android:layout_marginLeft="16dp"
                 android:id="@+id/contact_icon"
                 android:scaleType="center"
-                android:src="@drawable/ic_query_builder_black_24dp"/>
+                android:src="@drawable/ic_person_pin_black_24dp"/>
 
             <CheckBox android:id="@+id/chore_solved"
                       android:layout_width="40dp"
@@ -142,6 +134,7 @@
                       android:fontFamily="casual"
                       android:elevation="10dp" />
                      <!-- android:text="@string/chore_solved_label"/>-->
+
 
 
         </LinearLayout>
