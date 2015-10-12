@@ -1,4 +1,4 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

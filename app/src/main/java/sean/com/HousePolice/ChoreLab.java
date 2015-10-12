@@ -1,18 +1,20 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import sean.com.ChorePolice.database.ChoreBaseHelper;
-import sean.com.ChorePolice.database.ChoreCursorWrapper;
+import sean.com.HousePolice.database.ChoreBaseHelper;
+import sean.com.HousePolice.database.ChoreCursorWrapper;
 
-import static sean.com.ChorePolice.database.ChoreDBSchema.ChoreTable;
+import static sean.com.HousePolice.database.ChoreDBSchema.ChoreTable;
 
 /**
  * Created by Sean on 9/18/2015.
@@ -48,7 +50,7 @@ public class ChoreLab {
     public void deleteChore(Chore c) {
 
         //mDatabase.delete(ChoreTable.NAME, ChoreTable.Cols.UUID + "="+c.getId(),null);
-         mDatabase.delete(ChoreTable.NAME, ChoreTable.Cols.UUID + "=?", new String []{ c.getId().toString()});
+         mDatabase.delete(ChoreTable.NAME, ChoreTable.Cols.UUID + "=?", new String[]{c.getId().toString()});
     }
 
     public List<Chore> getChores() {
@@ -86,6 +88,16 @@ public class ChoreLab {
         }
     }
 
+    public File getPhotoFile(Chore chore) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null) {
+            return null;
+        }
+
+        return new File(externalFilesDir, chore.getPhotoFileName());
+    }
+
     public void updateChore(Chore chore) {
         String uuidString = chore.getId().toString();
         ContentValues values = getContentValues(chore);
@@ -98,6 +110,7 @@ public class ChoreLab {
         ContentValues values = new ContentValues();
         values.put(ChoreTable.Cols.UUID, chore.getId().toString());
         values.put(ChoreTable.Cols.TITLE, chore.getTitle());
+        values.put(ChoreTable.Cols.DESC, chore.getDescription());
         values.put(ChoreTable.Cols.DATE, chore.getDate()/*.getTime()*/);
         values.put(ChoreTable.Cols.SOLVED, chore.isSolved() ? 1 : 0);
         values.put(ChoreTable.Cols.SUSPECT, chore.getSuspect());

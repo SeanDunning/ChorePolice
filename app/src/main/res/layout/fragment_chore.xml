@@ -34,7 +34,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:elevation="10dp"
-
                 android:background="@color/very_light_indigo"
                 android:cropToPadding="true"/>
 
@@ -62,6 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:text="@string/chore_title_label"
+                android:textColor="@color/very_light_indigo"
                 android:fontFamily="casual"
                 />
 
@@ -78,6 +78,9 @@
                       android:layout_height="wrap_content"
                       android:layout_marginLeft="5dp"
                       android:hint="@string/chore_title_hint"
+                      android:textColorHint="@color/very_light_indigo"
+                      android:textColor="#FFFFFF"
+
                       android:fontFamily="casual"
 
                 />
@@ -87,6 +90,8 @@
                       android:layout_marginLeft="5dp"
                       android:layout_marginTop="10dp"
                       android:hint="@string/chore_desc_hint"
+                      android:textColorHint="@color/very_light_indigo"
+                      android:textColor="#FFFFFF"
                       android:fontFamily="casual"
 
                 />
@@ -99,7 +104,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_vertical">
         <!-- Icons and ticket sent checkbox-->
         <LinearLayout

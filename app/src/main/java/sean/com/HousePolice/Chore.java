@@ -1,4 +1,4 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -72,5 +72,9 @@ public class Chore {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public String getPhotoFileName() {
+        return "IMG_" + getId().toString() + ".jpg";
     }
 }

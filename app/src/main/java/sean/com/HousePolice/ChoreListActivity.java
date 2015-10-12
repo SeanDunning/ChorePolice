@@ -1,4 +1,4 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 import android.support.v4.app.Fragment;
 

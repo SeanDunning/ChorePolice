@@ -1,4 +1,4 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 
 import android.app.Activity;
@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -23,8 +24,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -39,6 +44,7 @@ public class ChoreFragment extends Fragment {
 
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
+    private static final int REQUEST_PHOTO = 2;
 
     private Chore mChore;
     private EditText mTitleField;
@@ -47,6 +53,9 @@ public class ChoreFragment extends Fragment {
     private CheckBox mSolvedCheckBox;
     private Button mReportButton;
     private Button mSuspectButton;
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
+    private File mPhotoFile;
 
 
     public static ChoreFragment newInstance(UUID choreId) {
@@ -69,6 +78,7 @@ public class ChoreFragment extends Fragment {
         //Encapsulated way of accessing EXTRA. Get EXTRA without knowing how host activity operates.
         setHasOptionsMenu(true);
         mChore = ChoreLab.get(getActivity()).getChore(choreId); //use new variable to find chore from choreLab
+        mPhotoFile = ChoreLab.get(getActivity()).getPhotoFile(mChore);
     }
 
     @Override
@@ -89,7 +99,7 @@ public class ChoreFragment extends Fragment {
             case R.id.menu_item_delete_chore:
                 ChoreLab.get(getActivity()).deleteChore(mChore);
                 getActivity().finish();
-                return true; //add new chore selected
+                return true; //deleted chore
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -116,6 +126,7 @@ public class ChoreFragment extends Fragment {
                 //blank intentionally
             }
         });
+
         mTitleField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -135,14 +146,15 @@ public class ChoreFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //mChore.setTitle(s.toString());
+                mChore.setDescription(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 //blank intentionally
             }
-        });
+        }); //set Description field
+
         mDescField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -164,7 +176,7 @@ public class ChoreFragment extends Fragment {
                 dialog.setTargetFragment(ChoreFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
-        });
+        }); //set date
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.chore_solved);
         mSolvedCheckBox.setChecked(mChore.isSolved());
@@ -174,7 +186,7 @@ public class ChoreFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mChore.setSolved(isChecked);
             }
-        });
+        }); //set solved check box
 
         mReportButton = (Button) v.findViewById(R.id.chore_report);
         mReportButton.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +200,7 @@ public class ChoreFragment extends Fragment {
                 startActivity(i);
 
             }
-        });
+        }); //configure report button
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -197,7 +209,7 @@ public class ChoreFragment extends Fragment {
             public void onClick(View v) {
                 startActivityForResult(pickContact,REQUEST_CONTACT);
             }
-        });
+        }); //select suspect button
 
         if(mChore.getSuspect() != null) {
             mSuspectButton.setText(getString(R.string.chore_suspect_selected, mChore.getSuspect()));
@@ -207,6 +219,30 @@ public class ChoreFragment extends Fragment {
         if(packageManager.resolveActivity(pickContact, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mSuspectButton.setEnabled(false);
         } //case for no contacts app
+
+        //Configure mPhotoButton to execute implicit intent for camera
+        mPhotoButton = (ImageButton) v.findViewById(R.id.chore_camera);
+        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        boolean canTakePhoto = mPhotoFile != null &&
+                captureImage.resolveActivity(packageManager) != null;
+        mPhotoButton.setEnabled(canTakePhoto);
+        //check for camera capability
+
+        if(canTakePhoto) {
+            Uri uri = Uri.fromFile(mPhotoFile);
+            captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
+
+        mPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        }); //start camera activity
+
+        mPhotoView = (ImageView) v.findViewById(R.id.chore_photo);
+        updatePhotoView();
 
         return v;
     }
@@ -243,6 +279,8 @@ public class ChoreFragment extends Fragment {
             } finally {
                 c.close();
             }
+        } else if (requestCode == REQUEST_PHOTO){
+            updatePhotoView();
         }
     }
 
@@ -251,12 +289,12 @@ public class ChoreFragment extends Fragment {
     }
 
     private String getChoreReport() {
-        String solvedString = null;
+        /*String solvedString = null;
         if (mChore.isSolved()) {
             solvedString = getString(R.string.chore_report_solved);
         } else {
             solvedString = getString(R.string.chore_report_unsolved);
-        }
+        }*/
 
         //String dateFormat = "EEE, MMM dd";
         //String dateString = DateFormat.format(dateFormat, mChore.getDate()).toString();
@@ -269,11 +307,26 @@ public class ChoreFragment extends Fragment {
             suspect = getString(R.string.chore_report_suspect, suspect);
         }
 
-        String report = getString(R.string.chore_report,
-                mChore.getTitle(), dateString, solvedString, suspect);
+        String report = getString(R.string.chore_report, getString(R.string.house_police_report),
+                mChore.getDescription(), dateString, suspect);
 
         mChore.setSolved(true);
+        mSolvedCheckBox.setChecked(true);
         return report;
+    }
+
+    private void updatePhotoView() {
+        if(mPhotoFile == null || !mPhotoFile.exists()) { //no photo
+            mPhotoView.setImageDrawable(null);
+        } else { //photo exists, scale down
+            //Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+
+            Picasso.with(getContext())
+                    .load(mPhotoFile)
+                    .fit().centerCrop()
+                    .into(mPhotoView);
+           // mPhotoView.setImageBitmap(bitmap);
+        }
     }
 
     public void hideKeyboard(View view) {

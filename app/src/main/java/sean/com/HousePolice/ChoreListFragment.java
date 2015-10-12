@@ -1,4 +1,4 @@
-package sean.com.ChorePolice;
+package sean.com.HousePolice;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +41,14 @@ public class ChoreListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chore_list, container, false);
 
+        ChoreLab choreLab = ChoreLab.get(getActivity());
+        int choreCount = choreLab.getChores().size();
+        if(choreCount == 0) {
+            mSubtitleVisible = true;
+        } else {
+            mSubtitleVisible = false;
+        }
+
         mChoreRecyclerView = (RecyclerView) view.findViewById(R.id.chore_recycler_view);
         mChoreRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -71,12 +79,12 @@ public class ChoreListFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_chore_list, menu);
 
-        MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
-        if(mSubtitleVisible) {
-            subtitleItem.setTitle(R.string.hide_subtitle);
-        } else {
-            subtitleItem.setTitle(R.string.show_subtitle);
-        }//check if show subtitle selected, display accordingly
+        //MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
+        //if(mSubtitleVisible) {
+        //    subtitleItem.setTitle(R.string.hide_subtitle);
+        //} else {
+        //    subtitleItem.setTitle(R.string.show_subtitle);
+        //}//check if show subtitle selected, display accordingly
     } //inflater populates menu with items defined in fragment_chore_list
 
     public boolean onOptionsItemSelected (MenuItem item) {
@@ -87,22 +95,30 @@ public class ChoreListFragment extends Fragment {
                 Intent intent = ChorePagerActivity.newIntent(getActivity(), chore.getId());
                 startActivity(intent);
                 return true; //add new chore selected
-            //case R.id.menu_item_delete_chore:
-            //    ChoreLab.get(getActivity()).deleteChore(chore);
+            /*case R.id.menu_item_delete_chore:
+                ChoreLab.get(getActivity()).deleteChore(chore);
             case R.id.menu_item_show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
-                return true; //show or hide subtitle selected
+                return true; //show or hide subtitle selected*/
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void updateSubtitle() {
+        //ChoreLab choreLab = ChoreLab.get(getActivity());
+        //int choreCount = choreLab.getChores().size();
+        //String subtitle = getString(R.string.subtitle_format, choreCount);
+        String subtitle = getString(R.string.subtitle_new_chore);
         ChoreLab choreLab = ChoreLab.get(getActivity());
         int choreCount = choreLab.getChores().size();
-        String subtitle = getString(R.string.subtitle_format, choreCount);
+        if(choreCount == 0) {
+            mSubtitleVisible = true;
+        } else {
+            mSubtitleVisible = false;
+        }
 
         if (!mSubtitleVisible) {
             subtitle = null;
@@ -159,9 +175,6 @@ public class ChoreListFragment extends Fragment {
 
             mChore = chore;
             mTitleTextView.setText(mChore.getTitle());
-            //String date = new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
-            //String date = DateFormat.getDateTimeInstance().format(new Date());
-            //mDateTextView.setText(date);
             mDateTextView.setText(mChore.getDate());
             mSolvedCheckbox.setChecked(mChore.isSolved());
             mSolvedCheckbox.setClickable(false);

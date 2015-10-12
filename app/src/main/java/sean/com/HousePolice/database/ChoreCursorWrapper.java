@@ -1,13 +1,13 @@
-package sean.com.ChorePolice.database;
+package sean.com.HousePolice.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import java.util.UUID;
 
-import sean.com.ChorePolice.Chore;
+import sean.com.HousePolice.Chore;
 
-import static sean.com.ChorePolice.database.ChoreDBSchema.ChoreTable;
+import static sean.com.HousePolice.database.ChoreDBSchema.ChoreTable;
 
 /**
  * Created by Sean on 9/29/2015.

@@ -1,4 +1,4 @@
-package sean.com.ChorePolice.database;
+package sean.com.HousePolice.database;
 
 /**
  * Created by Sean on 9/29/2015.
